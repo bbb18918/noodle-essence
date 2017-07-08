@@ -1,0 +1,431 @@
+给予一个整数数列和一个target，找出所有不重复的随机子元素集合，这个集合的合等于target。
+
+class Solution(object):
+	def sumOfSubSet(self, input, target):
+		sorted_input = sorted(input)
+		result = set()
+
+		def myDFS(current_array, input, target):
+			if not input: return
+
+			for index, value in enumerate(input):
+				if value == target:
+					result.add(tuple(current_array+[value]))
+					continue
+
+				if target > 0 and value > target: return
+
+				myDFS(current_array+[value], input[index+1:], target-value)
+
+		myDFS([], sorted_input, target)
+		return result
+
+input = [1, 11, 1, 10]
+target = 12
+solution = Solution()
+result = solution.sumOfSubSet(input, target)
+print [list(res) for res in result]
+
+
+写Pow(x, n)。
+https://leetcode.com/problems/powx-n/#/description
+class Solution(object):
+    def myPow(self, x, n):
+        """
+        :type x: float
+        :type n: int
+        :rtype: float
+        """
+        
+        res, m = 1, abs(n)
+        
+        while m:
+            if m&1:
+                res *= x
+            
+            m >>= 1
+            x *= x
+        
+        return res if n > 0 else 1.0/res
+
+
+克隆无向图node。
+Leetcode Clone Graph
+https://leetcode.com/problems/clone-graph/#/description
+
+方法一：
+Recursive DFS。
+# Definition for a undirected graph node
+# class UndirectedGraphNode:
+#     def __init__(self, x):
+#         self.label = x
+#         self.neighbors = []
+
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def cloneGraph(self, node):
+        if not node: return node
+        
+        map = {}
+        def nodeDFS(input):
+            if input in map:
+                return map[input]
+            
+            output = UndirectedGraphNode(input.label)
+            map[input] = output
+            
+            for neighbor in input.neighbors:
+                output.neighbors.append(nodeDFS(neighbor))
+            
+            return output
+        
+        return nodeDFS(node)
+
+# Definition for a undirected graph node
+# class UndirectedGraphNode:
+#     def __init__(self, x):
+#         self.label = x
+#         self.neighbors = []
+
+方法二：
+Iterative DFS。
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def cloneGraph(self, node):
+        if not node: return node
+        
+        new_node = UndirectedGraphNode(node.label)
+        clone_map, dfs_stack = {node: new_node}, [node]
+        
+        while dfs_stack:
+            cur_node = dfs_stack.pop()
+            for neighbor in cur_node.neighbors:
+                if neighbor in clone_map:
+                    clone_map[cur_node].neighbors.append(clone_map[neighbor])
+                else:
+                    new_cur_node = UndirectedGraphNode(neighbor.label)
+                    clone_map[cur_node].neighbors.append(new_cur_node)
+                    clone_map[neighbor] = new_cur_node
+                    dfs_stack.append(neighbor)
+        
+        return new_node
+
+方法三：
+BFS。
+# Definition for a undirected graph node
+# class UndirectedGraphNode:
+#     def __init__(self, x):
+#         self.label = x
+#         self.neighbors = []
+
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def cloneGraph(self, node):
+        if not node: return node
+        
+        new_node = UndirectedGraphNode(node.label)
+        clone_map, bfs_queue = {node: new_node}, [node]
+        
+        while bfs_queue:
+            cur_node = bfs_queue.pop(0)
+            for neighbor in cur_node.neighbors:
+                if neighbor in clone_map:
+                    clone_map[cur_node].neighbors.append(clone_map[neighbor])
+                else:
+                    new_cur_node = UndirectedGraphNode(neighbor.label)
+                    clone_map[cur_node].neighbors.append(new_cur_node)
+                    clone_map[neighbor] = new_cur_node
+                    bfs_queue.append(neighbor)
+        
+        return new_node
+
+
+找到top 1000 most frequent words:
+Leetcode 347. Top K Frequent Elements
+https://leetcode.com/problems/top-k-frequent-elements/#/description
+方法一：
+from collections import Counter
+
+class Solution(object):
+	def topNWords(self, input, n):
+		words = input.split(' ')
+		counter = Counter(words)
+		return [word_and_frequency[0] for word_and_frequency in counter.most_common(n)]
+
+input = "abc abc ddd fpg lalala ooo lalala ooo"
+n = 3
+solution = Solution()
+result = solution.topNWords(input, n)
+print result
+
+方法二：
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        
+        num_and_frequent_table = {}
+        
+        for num in nums:
+            if num not in num_and_frequent_table:
+                num_and_frequent_table[num] = 0
+            num_and_frequent_table[num] += 1
+        
+        frequent_num_pairs = zip(num_and_frequent_table.values(), num_and_frequent_table.keys())
+        
+        min_heap = frequent_num_pairs[:k]
+        heapq.heapify(min_heap)
+        for frequent_num_pair in frequent_num_pairs[k:]:
+            frequent, num = frequent_num_pair
+            if frequent > min_heap[0][0]:
+                heapq.heappushpop(min_heap, frequent_num_pair)
+
+        return [frequent_num_pair[1] for frequent_num_pair in min_heap]
+
+方法三：
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+
+        counter_of_num_occurrence = {}
+        for num in nums:
+            if num not in counter_of_num_occurrence:
+                counter_of_num_occurrence[num] = 0
+            counter_of_num_occurrence[num] += 1
+
+        num_and_frequent = zip(counter_of_num_occurrence.values(), counter_of_num_occurrence.keys())
+
+        def topKFrequentNumber(items, k):
+            pivot = items[0][0]
+            index, left, right = 0, 0, len(items)-1
+            
+            while left <= index <= right:
+                if items[index][0] > pivot:
+                    items[left], items[index] = items[index], items[left]
+                    left += 1
+                elif items[index][0] < pivot:
+                    items[right], items[index] = items[index], items[right]
+                    right -= 1
+                else:
+                    index += 1
+
+            if k > right+1:
+                return [item[1] for item in items[:right+1]] + topKFrequentNumber(items[right+1:], k-right-1)
+            elif k < left:
+                return topKFrequentNumber(items[:left], k)
+            else:
+                return [item[1] for item in items[:k]]
+
+        return topKFrequentNumber(num_and_frequent, k)
+
+最佳卖股票策略：
+121. Best Time to Buy and Sell Stock
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/#/description
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+
+        if not prices: return 0
+
+        prev_min, max_profit = prices[0], 0
+
+        for price in prices:
+            max_profit, prev_min = max(price-prev_min, max_profit), min(price, prev_min)
+
+        return max_profit
+ 
+122. Best Time to Buy and Sell Stock II
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/#/description
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        
+        max_profit = 0
+        
+        for index in range(1, len(prices)):
+            if prices[index] > prices[index-1]:
+                max_profit += prices[index]-prices[index-1]
+        
+        return max_profit
+
+235. Lowest Common Ancestor of a Binary Tree
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/#/description
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        
+        myStack = [root]
+        parents = {root:None}
+        
+        while p not in parents or q not in parents:
+            curNode = myStack.pop()
+            if curNode.left:
+                parents[curNode.left] = curNode
+                myStack.append(curNode.left)
+            if curNode.right:
+                parents[curNode.right] = curNode
+                myStack.append(curNode.right)
+
+        pParents = set()
+        while p:
+            pParents.add(p)
+            p = parents[p]
+        
+        while q not in pParents:
+            q = parents[q]
+        
+        return q
+
+
+What is virtual memory:
+virtual memory is a memory management technique. It maps the memory address used by the program,
+which is called virtual address, to physical address.
+
+
+How override method works:
+Override the method and instead of running the parent code of the method,
+it runs the current class's code.
+
+When a class defines a virtual function, most complier will add a hidden member variable
+to the class which points to the virtual method table.
+
+The virtual method table contains the pointers which point to the functions
+that will be called at the run time.
+
+The address of a given method will have the same offset for all type-compatiable classes.
+
+How much would you resize hashtable to reduce collision to an acceptable rate
+Increase the size of hash table until collision is reduced to an acceptable rate.
+
+What is encapsulation:
+1. Restricted direct access to some of the objects' components.
+2. Construct methods to operate on data.
+
+
+What is polymorphism:
+1. Polymorphic functions that can be applied to arguments of different types, but behave
+   differently depends on the arguments' types.
+2. Polymorphic parameter allows handling values uniiformly without knowing their types.
+
+N-Queens问题
+N-Queens 1:
+https://leetcode.com/problems/n-queens/#/description
+
+ class Solution(object):
+    def solveNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        
+        set_addition, set_minus = set(), set()
+        col_record = [False for _ in range(n)]
+        
+        result = []
+        
+        def generateBoard(locations):
+            board = [['.']*n for _ in range(n)]
+            for x, y in locations:
+                board[x][y] = 'Q'
+            return ["".join(row) for row in board]
+        
+        def myDFS(x, prev_locations, n):
+            for y in range(n):
+                if not col_record[y] and x+1+y not in set_addition and x+1-y not in set_minus:
+                    if x+1 == n-1:
+                        result.append(generateBoard(prev_locations+[(x+1, y)]))
+                    else:
+                        col_record[y] = True
+                        set_addition.add(x+1+y)
+                        set_minus.add(x+1-y)
+                    
+                        myDFS(x+1, prev_locations+[(x+1, y)], n)
+                    
+                        col_record[y] = False
+                        set_addition.remove(x+1+y)
+                        set_minus.remove(x+1-y)
+        
+        myDFS(-1, [], n)
+        return result
+
+N-Queens 2:
+https://leetcode.com/problems/n-queens-ii/#/description
+class Solution(object):
+    def totalNQueens(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        set_addition, set_minus = set(), set()
+        col_record = [False for _ in range(n)]
+        
+        def myDFS(x, n):
+            count = 0
+            for y in range(n):
+                if not col_record[y] and x+1+y not in set_addition and x+1-y not in set_minus:
+                    if x+1 == n-1:
+                        count += 1
+                    else:
+                        col_record[y] = True
+                        set_addition.add(x+1+y)
+                        set_minus.add(x+1-y)
+                        
+                        count += myDFS(x+1, n)
+                        
+                        col_record[y] = False
+                        set_addition.remove(x+1+y)
+                        set_minus.remove(x+1-y)
+                        
+            return count
+        
+        return myDFS(-1, n)
+	
+Disadvantage of encapsulation:
+Over encapsulation, data will be located in different areas of the memory.
+
+Page fault:
+1. Soft page fault is an exception which was raised when a program accesses a memory page that is not mapped into a
+virtual address space.
+2. Hard page fault is when a program try to access a memory page which is not loaded into the memory.
+
+Tableau:
+Advantage:
+Easy to operate, no need to write the code. Nice and colorful data display.
+
+Disadvantage:
+After I import an excel, I change the content of the excel, the change does not appear in the tableau.
+
+What is the dead lock:
+Two computer programs share the same resources but preventing each other from accessing the resources.
