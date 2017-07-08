@@ -429,3 +429,8 @@ After I import an excel, I change the content of the excel, the change does not 
 
 What is the dead lock:
 Two computer programs share the same resources but preventing each other from accessing the resources.
+
+Phone Interview的时候完全没有问面经里的题，问了两个难度easy的算法。一个是给你一个下划线分割变量，转变成驼峰命名法变量输出。另一个是给你一个
+比如11:30的输入，输出钟表上时针与分针之间的夹角。（输出小于180度的夹角）第二个要注意不合法的输入，比如lalala，oh yeah之类完全不合法的输入，
+又或者只有一个符号：的输入，再或者类似于33:08这样不合法的输入。对于大于12:00的合法输入，像15:35这样的合法输入，要转变成12:00以内的值，
+再进行角度计算。
