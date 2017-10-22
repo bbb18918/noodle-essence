@@ -1,0 +1,37 @@
+第一题：一个boolean array，里面是good bad的flag，如果bad发生，他之后就都是bad. 比如good, good, bad, bad,....., bad。求第一个bad。
+第二题：就问问，没写代码。在binary search tree里面找topk。我感觉我答得不好，好像复杂度就是O(n)吧。按照inorder-traverse. 
+第三题：算是第二题的扩展，写binary tree inorder traverse。
+接着就给recruiter发了个信说自己发挥的不好，能不能再给一次机会。结果那个recruiter就回信说我是positive feedback.
+
+给一个range，在BST里找对应的节点数或节点：https://algorithm.yuanbin.me/zh-hans/binary_search_tree/search_range_in_binary_search_tree.html
+class TreeNode(object):
+	def __init__(self):
+		self.left = None
+		self.right = None
+
+class Solution(object):
+	def __init__(self):
+		self.count = 0
+
+	def findRangeInBST(self, root, k1, k2):
+		
+		def myInorderTraverse(root):
+			if not root: return
+
+			if root.left and root.val > k1:
+				myInorderTraverse(root.left)
+
+			if k1 <= root.val <= k2:
+				self.count += 1
+
+			if root.right and root.val < k2:
+				myInorderTraverse(root.right)
+
+		myInorderTraverse(root)
+		return self.count
+
+mysql queries for onsite
+
+Maximum subarray. Word break. Reverse words in string.
+
+valid bracket, 加减乘除加括号合在一起的计算式子。
