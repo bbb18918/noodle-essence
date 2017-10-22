@@ -1,0 +1,90 @@
+Why Yelp, what improvements? 你有哪些特质符合
+我喜欢去不同的餐厅吃饭，体验各种不同的菜。也喜欢和朋友们一起出去吃饭。这时候会碰到一个情况：朋友想知道某家餐厅有什么好吃的或者特别的菜，
+价格如何是否合适等等？虽然可以通过$符号个数得知大概的价格范围，但我更希望可以在图片展示区里拍上菜单的照片，一个是这样我可以知道价格，另一个是
+我可以和友人讨论这里有什么菜，想不想吃这家。另外我还希望可以把这家餐厅的special或者best的菜单独列出来或者单独拍照，因为当我向别人推荐一家餐厅的时候，
+往往是首先推荐这些special或者best的菜。
+
+简历项目
+
+网页加载慢的原因。数据库慢的原因。怎么定位问题所在？
+带宽小，DNS解析太慢，机器配置不行，网页内容太大，太多js，js需要从服务器下载到本机上才可以看到。页面上用了大图片。引用了太多别的网站的内容。
+解决方案：用Gzip压缩文件，压缩css文件，减少js文件，用GIF格式图片，不要使用网页重定向，不要调用太大的视频文件，把CSS文件放在外部调用。
+
+resume.
+favorite course, why?
+Algorithm. 锻炼智商。
+
+introduce mapreduce to your grandmom.
+一个人想不出来的时候找一大群人帮你一起想
+
+what if is it slow to browse yelp.com on your boss's phone.
+how will you fix, diagnose it.
+首先看下boss的手机数据接收设置正确吗，接着再看看手机内存是不是快满了，删掉一些没用的图片。下载手机清理软件清理手机垃圾和碎片，要是这样还是很慢，
+看看boss的手机配置，是不是配置太低了？是的话建议boss换一个配置好一些的手机。如果这些都没大问题，用我手机登陆yelp.com，看看是不是yelp.com的问题。
+
+what happen when you enter yelp.com in browser.
+https://www.zhihu.com/question/34873227
+http://igoro.com/archive/what-really-happens-when-you-navigate-to-a-url/
+
+networking tcp/ip.
+七层基础：http://blog.csdn.net/yusiguyuan/article/details/22514419
+MAC/IP转换：http://blog.csdn.net/yang_best/article/details/41643589
+TCP三次握手，四次挥手。
+
+how browser renders content.
+这是前端吧，pass。
+下载文件，dom tree生成，render tree生成。
+
+what if our server is down?
+https://www.smashingmagazine.com/2010/12/what-to-do-when-your-website-goes-down/
+Someone has tried to submit too many highly complex requests
+The server is over-loaded by too many people
+The server ran out of memory (meaning it can't efficiently handle the tasks at hand)
+The storage that holds all the database files may be acting up.
+
+10分钟说一下工作的项目，你做了其中哪些部分，最大的困难是神马，你怎么解决的，你学到了什么
+这一部分问的非常详细，几乎就是把项目从头到位每个关键部分都说的一下，还有互相之间的联系。
+
+process 和 thread 的区别, 是否共享heap 和 stack space
+thread存在进程之中并且分享进程的资源，多个thread可以在一个process中且共享heap space，线程拥有自己的stack和register.
+
+207, 212, 435, 227, 282, 56, 125, 273, 621, 128, 298, 549, group anagram, 340
+
+2. Java 跟 python 有什么不同？architecture level  的不同.
+一、python虚拟机没有java强，java虚拟机是java的核心，python的核心是可以很方便地使用c语言函数或c++库。
+二、python是全动态性的，可以在运行时自己修改自己的代码，java只能通过变通方法实现。python的变量是动态的，而java的变量是静态的，需要事先声明，所以java ide的代码提示功能优于python ide。
+三，python的产生几十年了，几十年前面向过程是主流，所以用python有好多程序用的是面向过程设计方法，很多概念从c语言过来的，class在python中是后加入的，而java是为了实现没有指针的c++（当年com组件用的引用记数，java用的虚拟机），主要采用面向对象的设计方法，很多概念是oop的概念。面向过程，相对简洁直观，但容易设计出面条程序，面向对象，相对抽象优雅，但容易过度抽象
+四，在实际使用的python入门简单，但要学会用python干活，需要再学习python各种库，pyhton的强大在于库，为什么python的库强大，原因是python的库可以用python，c语言,c++等设计，再提供给python使用，所以无论gpu运行，神经网络，智能算法，数据分析，图像处理，科学计算，各式各样的库在等着你用。
+   而java没有python那么多的开源库，很多库是商业公司内部使用，或发布出来只是一个jar包，看不到原始代码。python虚拟机因为编译性没有java的支持的好（或者说故意这么设计的），一般直接使用源码（linux），或源码简单打个包（如pyexe）。
+
+3. Java 垃圾回收器的原理.
+http://www.jianshu.com/p/778dd3848196
+
+design web crawler
+日，网络爬虫，和我无关。
+
+一个DNS返回多个IP地址。
+load-balancer
+根据地理位置信息返回IP地址。
+
+网页加载慢的原因：
+js文件太多，外部引用太多， 用了大图片，网站文件太大，网速不好，机器配置不行，DNS解析太慢
+用Gzip压缩文件，少用重定向，压缩css文件，css文件放在外部调用，减少js文件，用GIF格式的图片，清空浏览器历史记录可能使用新的DNS解析服务器。
+
+服务器挂了怎么办：
+检查是不是服务器真的挂了：用你的浏览器登陆看看，不行查一下网络连接是否正常，用你的手机登陆一下看看。
+用ping命令检查能不能ping通。
+用traceroute命令检查是不是路径上有网络故障。
+检查能不能ssh到服务器上。
+检查服务器上的硬盘使用情况。
+检查服务器上内存使用情况。
+检查服务器上apache，Mysql等等服务是否在运行，是否运行正常。
+
+python和java的区别：
+python虚拟机没有java强，python可以调用很多c和c++的库。
+java基于c++设计，python基于c设计。
+python是动态的，java是静态的。
+python主要靠各种库。
+
+给你一个带weight，value的pair list，根据权重随机选择出数据。优化：如果重复多次调用这个函数怎么办？重复多次调用的情况下，
+时间复杂度要提高到O(log N)，怎么做？ Binary Search。
