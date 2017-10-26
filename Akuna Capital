@@ -1,0 +1,20 @@
+What is virtual memory, explain
+
+
+
+
+Compiled language vs interpreted language, explain
+Override vs overload, explain
+What is cache
+What is mutex
+智力题：三个basket，一个全apple，一个全orange，一个是apple和orange的混合，然后三个label分别写着apple，orange，apple & orange然后三个标签都贴错了，你只能取出一个水果然后如何把三个标签都贴到正确的那个basket上。注意关键点是三个标签全部都贴错，然后只能取出一个basket中的水果。这个可以先自己想想，想知道答案可以自己搜Google或者留言。
+编程题三题:
+以下内容需要积分高于 155 才可浏览
+
+Print all odd numbers between 1 to 100 - 一种方法说完就过了
+Remove duplicate from unsorted array - 问了两种方法
+Power of 2 - 让我说as much as you can 的方法
+
+
+(之前面经没见过的题目之一) What is fork: 我现场开google搜的＝ ＝
+Given 1 billion number, get the largest 1 million. Large dataset means you cannot store all of them and sort. 这个用MinHeap解决。
