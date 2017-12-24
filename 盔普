@@ -1,1 +1,21 @@
+1 fibonacci数列
 
+2 给定dictionary of words, start word。求由start word组成的最长的在dictionary中的词。
+e.g. start word: at
+      dictionary: chat, hat, chats, bat.
+      answer: at->hat->chat->chats, 答案是4. 
+    if dictionary: hat, chats, bat
+      answer: at->hat, 答案是2. 
+
+第一题 地理有面经
+别人的面经如下.
+给一个有效的字的list 要求从两个字符的字开始组，每次可以在字前面或后面加一个字符，但是组出来的字一定要在list里 问可以组出的字最长的长度是多少
+
+简单follow up: 1. 怎么确认算出的长度是对的 (A: 输出组字的过程) 2. 如果有超过一个字是这长度全部输出
+每个字都要在list里, 例如 to -> top -> stop; (list很长 有几十万字)
+第二题原题，merge 两个排好序的array
+
+题都做出来了 中间有一点小bug 也找出来了  
+结果被拒
+
+第一题的考到的概率还是蛮高的，bfs
